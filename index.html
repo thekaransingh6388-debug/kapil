@@ -96,6 +96,7 @@
       border: 1px solid rgba(59, 130, 246, 0.5);
       width: 100%;
       margin-bottom: 0.5rem;
+      cursor: pointer;
     }
     .btn-dark-blue i {
       font-size: 1.35rem;
@@ -123,6 +124,7 @@
       border: 1px solid rgba(59, 130, 246, 0.5);
       width: 100%;
       margin-top: 0.8rem;
+      cursor: pointer;
     }
     .btn-last-dark i {
       font-size: 1.3rem;
@@ -130,6 +132,16 @@
     .btn-last-dark:hover {
       transform: translateY(-2px);
       background: linear-gradient(95deg, #1e3a8a, #2563eb);
+    }
+
+    /* NEW SUBSCRIBE BUTTON (Extra Subscribe Button with event tracking) */
+    .btn-subscribe {
+      background: linear-gradient(95deg, #0f2b5e 0%, #1a4791 100%);
+      border-bottom: 2px solid #facc15;
+      margin-top: 0.8rem;
+    }
+    .btn-subscribe:hover {
+      background: linear-gradient(95deg, #163b77, #1f55b0);
     }
 
     /* Label under first button */
@@ -209,6 +221,14 @@
       border-top: 1px solid rgba(59,130,246,0.3);
       padding-top: 1rem;
     }
+    
+    .event-badge {
+      font-size: 0.6rem;
+      color: #facc15;
+      margin-top: 6px;
+      text-align: center;
+      letter-spacing: 0.3px;
+    }
 
     @media (max-width: 480px) {
       .premium-card {
@@ -244,7 +264,7 @@
     </div>
 
     <!-- ✅ FIRST TELEGRAM BUTTON (Name ke just niche) + Dark Blue -->
-    <a href="https://t.me/+7PAgBBLulUJiNjc1" target="_blank" rel="noopener noreferrer" class="btn-dark-blue">
+    <a href="https://t.me/+7PAgBBLulUJiNjc1" target="_blank" rel="noopener noreferrer" class="btn-dark-blue" id="joinBtnFirst" data-button-name="Join Button Primary (Below Name)" data-position="first_under_name">
       <i class="fab fa-telegram-plane"></i> Join Telegram Channel
     </a>
     <div class="btn-label">
@@ -273,9 +293,18 @@
     </div>
 
     <!-- ✅ SECOND TELEGRAM BUTTON (Last me rakha hai) with Dark Blue -->
-    <a href="https://t.me/+7PAgBBLulUJiNjc1" target="_blank" rel="noopener noreferrer" class="btn-last-dark">
+    <a href="https://t.me/+7PAgBBLulUJiNjc1" target="_blank" rel="noopener noreferrer" class="btn-last-dark" id="joinBtnSecond" data-button-name="Join Button Secondary (Last me wala)" data-position="last_button_bottom">
       <i class="fab fa-telegram"></i> Join Now & Start Earning
     </a>
+    
+    <!-- ✅ EXTRA SUBSCRIBE BUTTON + EVENT TOOL PIXEL TRACKING (Subscribe button) -->
+    <a href="https://t.me/+7PAgBBLulUJiNjc1" target="_blank" rel="noopener noreferrer" class="btn-last-dark btn-subscribe" id="subscribeBtnSpecial" data-button-name="Subscribe Telegram Button (Event Track)" data-position="dedicated_subscribe_section">
+      <i class="fas fa-bell"></i> 🔔 SUBSCRIBE TO TELEGRAM ALERTS
+    </a>
+    <div class="event-badge">
+      🎯 Pixel Tracked: Lead + Subscribe + CustomEvent (Event Tool Active)
+    </div>
+    
     <div class="btn-label" style="margin-top: 6px;">
       <i class="fas fa-lock-open"></i> 100% Free • Limited Spots
     </div>
@@ -287,7 +316,7 @@
   </div>
 </div>
 
-<!-- META PIXEL CODE (exact diya hua) -->
+<!-- META PIXEL CODE (Fixed: Only one correct pixel initialization) -->
 <script>
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -297,15 +326,187 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1041818688127022');
+fbq('init', '2440610736412776');
 fbq('track', 'PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1041818688127022&ev=PageView&noscript=1"
+src="https://www.facebook.com/tr?id=2440610736412776&ev=PageView&noscript=1"
 /></noscript>
+<!-- End Meta Pixel Code -->
 
+<!-- COMPLETE EVENT TRACKING SCRIPT: Subscribe + Join Telegram + Event Tool Pixel Tracking -->
 <script>
-  if(typeof fbq === 'function') console.log("Meta Pixel Active - PANKAJ BHARDWAJ");
+(function() {
+    // Helper function to fire all pixel events (Lead, Subscribe, CustomEvent)
+    function fireAllPixelEvents(buttonElement, buttonName, position) {
+        if (typeof fbq !== 'function') {
+            console.warn("Facebook Pixel not ready. Tracking skipped but link works.");
+            return;
+        }
+        
+        // Standard Lead event (primary conversion for join/subscribe)
+        fbq('track', 'Lead', {
+            content_name: buttonName,
+            content_category: 'Telegram_Channel_Join_PankajBhardwaj',
+            button_position: position,
+            method: 'Telegram_Redirect',
+            currency: 'INR',
+            value: 0
+        });
+        
+        // Subscribe event (Meta standard event for subscriptions)
+        fbq('track', 'Subscribe', {
+            content_name: 'Telegram_Channel_Subscription_Pankaj',
+            status: 'joined',
+            button_name: buttonName,
+            location: position,
+            channel: 'PANKAJ_BHARDWAJ_TELEGRAM'
+        });
+        
+        // Custom event for deeper analytics (Event Tool Pixel Track)
+        fbq('track', 'CustomEvent', {
+            event_name: 'JoinPankajTelegramChannel',
+            button_label: buttonName,
+            position_on_page: position,
+            page_section: 'cta_telegram',
+            timestamp: new Date().toISOString()
+        });
+        
+        // Additional Custom Event with specific name
+        if (fbq && fbq('trackCustom')) {
+            fbq('trackCustom', 'PankajTelegramJoin', {
+                button_name: buttonName,
+                location: position
+            });
+        }
+        
+        console.log(`[FB Pixel] Events fired: Lead, Subscribe, CustomEvent for "${buttonName}" at "${position}"`);
+    }
+    
+    // Get all telegram join/subscribe buttons
+    const firstButton = document.getElementById('joinBtnFirst');
+    const secondButton = document.getElementById('joinBtnSecond');
+    const subscribeButton = document.getElementById('subscribeBtnSpecial');
+    
+    // Function to attach tracking to a button (replaces with tracked version)
+    function setupButtonTracking(button, defaultName, defaultPosition) {
+        if (!button) return;
+        
+        // Get custom attributes or use defaults
+        let buttonName = button.getAttribute('data-button-name') || defaultName;
+        let position = button.getAttribute('data-position') || defaultPosition;
+        
+        // Clone to remove existing listeners and add fresh tracking
+        const newButton = button.cloneNode(true);
+        if (button.parentNode) {
+            button.parentNode.replaceChild(newButton, button);
+        }
+        
+        newButton.addEventListener('click', function(e) {
+            // Fire all pixel events before redirect
+            fireAllPixelEvents(newButton, buttonName, position);
+            console.log(`[Click Track] Redirecting to Telegram via ${buttonName}`);
+            return true;
+        });
+        
+        // Ensure href is correct
+        if (!newButton.getAttribute('href') || newButton.getAttribute('href') !== 'https://t.me/+7PAgBBLulUJiNjc1') {
+            newButton.setAttribute('href', 'https://t.me/+7PAgBBLulUJiNjc1');
+        }
+    }
+    
+    // Setup all three buttons
+    setupButtonTracking(firstButton, 'Join Button Primary (Below Name)', 'first_under_name_direct');
+    setupButtonTracking(secondButton, 'Join Button Secondary (Last me wala)', 'last_button_bottom');
+    setupButtonTracking(subscribeButton, 'Subscribe Telegram Button (Event Track)', 'dedicated_subscribe_section');
+    
+    // ========== SCROLL DEPTH TRACKING (Event Tool) ==========
+    let scrollTracked25 = false;
+    let scrollTracked50 = false;
+    let scrollTracked75 = false;
+    
+    window.addEventListener('scroll', function() {
+        const scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+        
+        if (!scrollTracked25 && scrollPercent >= 25) {
+            if (typeof fbq === 'function') {
+                fbq('track', 'ScrollDepth', { depth: '25%', page: 'pankaj_bhardwaj_landing' });
+                fbq('trackCustom', 'EngagementScroll', { percent: 25, channel: 'PankajBhardwaj' });
+                console.log('[Event Tool] Scroll depth 25% tracked');
+            }
+            scrollTracked25 = true;
+        }
+        
+        if (!scrollTracked50 && scrollPercent >= 50) {
+            if (typeof fbq === 'function') {
+                fbq('track', 'ScrollDepth', { depth: '50%', page: 'pankaj_bhardwaj_landing' });
+                fbq('trackCustom', 'EngagementScroll', { percent: 50, channel: 'PankajBhardwaj' });
+                console.log('[Event Tool] Scroll depth 50% tracked');
+            }
+            scrollTracked50 = true;
+        }
+        
+        if (!scrollTracked75 && scrollPercent >= 75) {
+            if (typeof fbq === 'function') {
+                fbq('track', 'ScrollDepth', { depth: '75%', page: 'pankaj_bhardwaj_landing' });
+                fbq('trackCustom', 'EngagementScroll', { percent: 75, channel: 'PankajBhardwaj' });
+                console.log('[Event Tool] Scroll depth 75% tracked');
+            }
+            scrollTracked75 = true;
+        }
+    });
+    
+    // ========== PAGE VIEW ENHANCED TRACKING ==========
+    if (typeof fbq === 'function') {
+        fbq('track', 'ViewContent', {
+            content_name: 'Pankaj_Bhardwaj_Telegram_Landing',
+            content_category: 'StockMarket_Channel_Pankaj',
+            currency: 'INR',
+            value: 0
+        });
+        fbq('trackCustom', 'LandingPageViewed_Pankaj', {
+            designer: 'PankajBhardwaj',
+            version: '2.0_EventTool_Final'
+        });
+        console.log('[Pixel] PageView, ViewContent, and Custom landing event tracked');
+    }
+    
+    // ========== DELEGATION SAFETY: Track any telegram link click that might have been missed ==========
+    document.body.addEventListener('click', function(e) {
+        const target = e.target.closest('a');
+        if (target && target.href && target.href.includes('t.me/+7PAgBBLulUJiNjc1')) {
+            // Check if tracking already attached
+            if (!target.hasAttribute('data-tracked-telegram')) {
+                let btnName = target.innerText.trim().substring(0, 50) || 'Telegram_Link_Dynamic_Pankaj';
+                let pos = 'dynamic_click_delegation';
+                if (typeof fbq === 'function') {
+                    fbq('track', 'Lead', { content_name: btnName, content_category: 'dynamic_telegram_pankaj', button_position: pos });
+                    fbq('track', 'Subscribe', { content_name: 'Telegram_Channel_Join_Dynamic_Pankaj' });
+                    fbq('trackCustom', 'PankajTelegramJoin', { button_name: btnName, location: pos });
+                    console.log('[Delegation] Pixel tracked for dynamic telegram click');
+                }
+                target.setAttribute('data-tracked-telegram', 'true');
+            }
+        }
+    });
+    
+    // ========== TIME ON PAGE TRACKING (Event Tool) ==========
+    let startTime = Date.now();
+    window.addEventListener('beforeunload', function() {
+        const timeSpent = Math.floor((Date.now() - startTime) / 1000);
+        if (timeSpent > 5 && typeof fbq === 'function') {
+            fbq('trackCustom', 'TimeOnPage', {
+                seconds_spent: timeSpent,
+                page: 'pankaj_bhardwaj_landing'
+            });
+            console.log(`[Event Tool] Time on page tracked: ${timeSpent} seconds`);
+        }
+    });
+    
+    console.log('✅ PANKAJ BHARDWAJ: All Join Telegram & Subscribe buttons are pixel-tracked with Lead, Subscribe & Custom events');
+    console.log('✅ Buttons placed: (1) First under name, (2) Second at bottom (last me), (3) Extra Subscribe button with event tracking');
+    console.log('✅ Stock market points: NIFTY/BANKNIFTY 100-300 Points, 80-90% Accuracy, 3-4 calls daily');
+})();
 </script>
 </body>
 </html>
