@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   
-  <!-- NEW Meta Pixel Code (Pixel ID: 2450209212135373) - COMPLETE REPLACEMENT -->
+  <!-- NEW Meta Pixel Code (Pixel ID: 1516601233287747) -->
   <script>
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -20,8 +20,8 @@
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
     
-    // NEW PIXEL ID: 2450209212135373
-    fbq('init', '2450209212135373');
+    // NEW PIXEL ID: 1516601233287747
+    fbq('init', '1516601233287747');
     
     // Track initial PageView with enhanced parameters
     fbq('track', 'PageView', {
@@ -36,13 +36,13 @@
       source: 'direct',
       device: window.innerWidth > 768 ? 'desktop' : 'mobile',
       timestamp: new Date().toISOString(),
-      pixel_id: '2450209212135373'
+      pixel_id: '1516601233287747'
     });
     
-    console.log('✅ Facebook Pixel Initialized - ID: 2450209212135373');
+    console.log('✅ Facebook Pixel Initialized - ID: 1516601233287747');
   </script>
   <noscript>
-    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2450209212135373&ev=PageView&noscript=1"/>
+    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1516601233287747&ev=PageView&noscript=1"/>
   </noscript>
   <!-- End Meta Pixel Code -->
   
@@ -337,7 +337,7 @@
       <i class="fas fa-bolt"></i> Free Access • Live Stock Calls • 24/7
     </div>
 
-    <!-- ========== STOCK MARKET POINTS (Exactly as you wanted) ========== -->
+    <!-- ========== STOCK MARKET POINTS ========== -->
     <div class="features-box">
       <h3><i class="fas fa-chart-simple"></i> NIFTY • BANKNIFTY & STOCK OPTIONS</h3>
       <div class="feature-list">
@@ -363,7 +363,7 @@
       <i class="fab fa-telegram"></i> Join Now & Start Earning
     </a>
     
-    <!-- ✅ EXTRA SUBSCRIBE BUTTON + EVENT TOOL PIXEL TRACKING (Subscribe button) -->
+    <!-- ✅ EXTRA SUBSCRIBE BUTTON + EVENT TOOL PIXEL TRACKING -->
     <a href="https://t.me/+7PAgBBLulUJiNjc1" target="_blank" rel="noopener noreferrer" class="btn-last-dark btn-subscribe" id="subscribeBtnSpecial" data-button-name="Subscribe Telegram Button (Event Track)" data-position="dedicated_subscribe_section">
       <i class="fas fa-bell"></i> 🔔 SUBSCRIBE TO TELEGRAM ALERTS
     </a>
@@ -388,6 +388,15 @@
 <!-- COMPLETE EVENT TRACKING SCRIPT: Subscribe + Join Telegram + Event Tool Pixel Tracking -->
 <script>
 (function() {
+    // =====================================================
+    // PIXEL ID: 1516601233287747
+    // TELEGRAM LINK: https://t.me/+7PAgBBLulUJiNjc1
+    // =====================================================
+    
+    const PIXEL_ID = '1516601233287747';
+    const TELEGRAM_LINK = 'https://t.me/+7PAgBBLulUJiNjc1';
+    const EXPERT_NAME = 'PANKAJ_BHARDWAJ';
+    
     // Helper to show toast message
     function showToastMessage(message, duration = 1800) {
         const toast = document.getElementById('trackingToast');
@@ -400,7 +409,7 @@
         }
     }
     
-    // Helper function to fire all pixel events (Lead, Subscribe, CustomEvent)
+    // Helper function to fire all pixel events (Lead, Subscribe, CustomEvent, CompleteRegistration)
     function fireAllPixelEvents(buttonElement, buttonName, position) {
         if (typeof fbq !== 'function') {
             console.warn("Facebook Pixel not ready. Tracking skipped but link works.");
@@ -419,8 +428,9 @@
             method: 'Telegram_Redirect',
             currency: 'INR',
             value: 0.01,
-            channel_link: 't.me/+7PAgBBLulUJiNjc1',
-            pixel_id: '2450209212135373'
+            channel_link: TELEGRAM_LINK,
+            pixel_id: PIXEL_ID,
+            expert: EXPERT_NAME
         });
         
         // 2. SUBSCRIBE event (Meta standard event for subscriptions)
@@ -429,37 +439,41 @@
             status: 'joined',
             button_name: buttonName,
             location: position,
-            channel: 'PANKAJ_BHARDWAJ_TELEGRAM'
+            channel: 'PANKAJ_BHARDWAJ_TELEGRAM',
+            pixel_id: PIXEL_ID
         });
         
         // 3. Custom Event: JoinTelegramClick (detailed click-level analytics)
-        fbq('track', 'CustomEvent', {
-            event_name: 'JoinPankajTelegramChannel',
+        fbq('trackCustom', 'PankajTelegramJoin', {
+            button_name: buttonName,
             button_label: buttonName,
             position_on_page: position,
             page_section: 'cta_telegram',
             timestamp: eventTime,
-            device_type: deviceType
+            device_type: deviceType,
+            pixel_id: PIXEL_ID,
+            expert: EXPERT_NAME
         });
         
-        // 4. Additional Custom Event with specific name for Event Tool
-        fbq('trackCustom', 'PankajTelegramJoin', {
-            button_name: buttonName,
-            location: position,
-            timestamp_ms: Date.now(),
-            pixel_version: '2450209212135373'
-        });
-        
-        // 5. CompleteRegistration Event for funnel tracking
+        // 4. CompleteRegistration Event for funnel tracking
         fbq('track', 'CompleteRegistration', {
             registration_method: 'Telegram_Join_Button',
             content_name: 'PANKAJ_STOCK_SIGNALS',
             status: 'initiated_join',
-            button_used: buttonName
+            button_used: buttonName,
+            pixel_id: PIXEL_ID
         });
         
-        console.log(`✅ [Pixel 2450209212135373] Events fired: Lead, Subscribe, CustomEvent, CompleteRegistration for "${buttonName}" at "${position}"`);
-        showToastMessage(`✅ Joined! Pixel events tracked`, 1500);
+        // 5. Contact Event
+        fbq('track', 'Contact', {
+            contact_method: 'Telegram_Channel',
+            content_name: 'Pankaj_Bhardwaj_Telegram_Join',
+            expert: EXPERT_NAME,
+            pixel_id: PIXEL_ID
+        });
+        
+        console.log(`✅ [Pixel ${PIXEL_ID}] Events fired: Lead, Subscribe, CustomEvent, CompleteRegistration, Contact for "${buttonName}" at "${position}"`);
+        showToastMessage(`✅ Joined! Pixel events tracked (${PIXEL_ID})`, 1500);
         return true;
     }
     
@@ -500,12 +514,12 @@
                     window.open(targetUrl, '_blank');
                 }
                 isProcessing = false;
-            }, 200);
+            }, 300);
         });
         
         // Ensure href is correct
-        if (!newButton.getAttribute('href') || newButton.getAttribute('href') !== 'https://t.me/+7PAgBBLulUJiNjc1') {
-            newButton.setAttribute('href', 'https://t.me/+7PAgBBLulUJiNjc1');
+        if (!newButton.getAttribute('href') || newButton.getAttribute('href') !== TELEGRAM_LINK) {
+            newButton.setAttribute('href', TELEGRAM_LINK);
         }
         
         return newButton;
@@ -526,27 +540,27 @@
         
         if (!scrollTracked25 && scrollPercent >= 25) {
             if (typeof fbq === 'function') {
-                fbq('track', 'ScrollDepth', { depth: '25%', page: 'pankaj_bhardwaj_landing', pixel_id: '2450209212135373' });
-                fbq('trackCustom', 'EngagementScroll', { percent: 25, channel: 'PankajBhardwaj' });
-                console.log('[Event Tool] Scroll depth 25% tracked');
+                fbq('track', 'ScrollDepth', { depth: '25%', page: 'pankaj_bhardwaj_landing', pixel_id: PIXEL_ID });
+                fbq('trackCustom', 'EngagementScroll', { percent: 25, channel: 'PankajBhardwaj', pixel_id: PIXEL_ID });
+                console.log(`[Pixel ${PIXEL_ID}] Scroll depth 25% tracked`);
             }
             scrollTracked25 = true;
         }
         
         if (!scrollTracked50 && scrollPercent >= 50) {
             if (typeof fbq === 'function') {
-                fbq('track', 'ScrollDepth', { depth: '50%', page: 'pankaj_bhardwaj_landing', pixel_id: '2450209212135373' });
-                fbq('trackCustom', 'EngagementScroll', { percent: 50, channel: 'PankajBhardwaj' });
-                console.log('[Event Tool] Scroll depth 50% tracked');
+                fbq('track', 'ScrollDepth', { depth: '50%', page: 'pankaj_bhardwaj_landing', pixel_id: PIXEL_ID });
+                fbq('trackCustom', 'EngagementScroll', { percent: 50, channel: 'PankajBhardwaj', pixel_id: PIXEL_ID });
+                console.log(`[Pixel ${PIXEL_ID}] Scroll depth 50% tracked`);
             }
             scrollTracked50 = true;
         }
         
         if (!scrollTracked75 && scrollPercent >= 75) {
             if (typeof fbq === 'function') {
-                fbq('track', 'ScrollDepth', { depth: '75%', page: 'pankaj_bhardwaj_landing', pixel_id: '2450209212135373' });
-                fbq('trackCustom', 'EngagementScroll', { percent: 75, channel: 'PankajBhardwaj' });
-                console.log('[Event Tool] Scroll depth 75% tracked');
+                fbq('track', 'ScrollDepth', { depth: '75%', page: 'pankaj_bhardwaj_landing', pixel_id: PIXEL_ID });
+                fbq('trackCustom', 'EngagementScroll', { percent: 75, channel: 'PankajBhardwaj', pixel_id: PIXEL_ID });
+                console.log(`[Pixel ${PIXEL_ID}] Scroll depth 75% tracked`);
             }
             scrollTracked75 = true;
         }
@@ -559,14 +573,15 @@
             content_category: 'StockMarket_Channel_Pankaj',
             currency: 'INR',
             value: 0,
-            pixel_id: '2450209212135373'
+            pixel_id: PIXEL_ID,
+            expert: EXPERT_NAME
         });
         fbq('trackCustom', 'LandingPageViewed_Pankaj', {
             designer: 'PankajBhardwaj',
             version: '3.0_EventTool_Final',
-            pixel_id: '2450209212135373'
+            pixel_id: PIXEL_ID
         });
-        console.log('[Pixel 2450209212135373] PageView, ViewContent, and Custom landing event tracked');
+        console.log(`[Pixel ${PIXEL_ID}] PageView, ViewContent, and Custom landing event tracked`);
     }
     
     // ========== BUTTON HOVER INTENT TRACKING ==========
@@ -577,22 +592,22 @@
         if (target && target.id === 'joinBtnFirst' && !hoverTracked.first) {
             hoverTracked.first = true;
             if (typeof fbq === 'function') {
-                fbq('trackCustom', 'ButtonHoverIntent', { button_position: 'First_Join_Button', action: 'hover' });
-                console.log('🖱️ First button hover intent tracked');
+                fbq('trackCustom', 'ButtonHoverIntent', { button_position: 'First_Join_Button', action: 'hover', pixel_id: PIXEL_ID });
+                console.log(`[Pixel ${PIXEL_ID}] First button hover intent tracked`);
             }
         }
         if (target && target.id === 'joinBtnSecond' && !hoverTracked.second) {
             hoverTracked.second = true;
             if (typeof fbq === 'function') {
-                fbq('trackCustom', 'ButtonHoverIntent', { button_position: 'Second_Join_Button', action: 'hover' });
-                console.log('🖱️ Second button hover intent tracked');
+                fbq('trackCustom', 'ButtonHoverIntent', { button_position: 'Second_Join_Button', action: 'hover', pixel_id: PIXEL_ID });
+                console.log(`[Pixel ${PIXEL_ID}] Second button hover intent tracked`);
             }
         }
         if (target && target.id === 'subscribeBtnSpecial' && !hoverTracked.subscribe) {
             hoverTracked.subscribe = true;
             if (typeof fbq === 'function') {
-                fbq('trackCustom', 'ButtonHoverIntent', { button_position: 'Subscribe_Special_Button', action: 'hover' });
-                console.log('🖱️ Subscribe button hover intent tracked');
+                fbq('trackCustom', 'ButtonHoverIntent', { button_position: 'Subscribe_Special_Button', action: 'hover', pixel_id: PIXEL_ID });
+                console.log(`[Pixel ${PIXEL_ID}] Subscribe button hover intent tracked`);
             }
         }
     });
@@ -601,15 +616,14 @@
     document.body.addEventListener('click', function(e) {
         const target = e.target.closest('a');
         if (target && target.href && target.href.includes('t.me/+7PAgBBLulUJiNjc1')) {
-            // Check if tracking already attached
             if (!target.hasAttribute('data-tracked-telegram')) {
                 let btnName = target.innerText.trim().substring(0, 50) || 'Telegram_Link_Dynamic_Pankaj';
                 let pos = 'dynamic_click_delegation';
                 if (typeof fbq === 'function') {
-                    fbq('track', 'Lead', { content_name: btnName, content_category: 'dynamic_telegram_pankaj', button_position: pos, pixel_id: '2450209212135373' });
-                    fbq('track', 'Subscribe', { content_name: 'Telegram_Channel_Join_Dynamic_Pankaj' });
-                    fbq('trackCustom', 'PankajTelegramJoin', { button_name: btnName, location: pos });
-                    console.log('[Delegation] Pixel tracked for dynamic telegram click');
+                    fbq('track', 'Lead', { content_name: btnName, content_category: 'dynamic_telegram_pankaj', button_position: pos, pixel_id: PIXEL_ID });
+                    fbq('track', 'Subscribe', { content_name: 'Telegram_Channel_Join_Dynamic_Pankaj', pixel_id: PIXEL_ID });
+                    fbq('trackCustom', 'PankajTelegramJoin', { button_name: btnName, location: pos, pixel_id: PIXEL_ID });
+                    console.log(`[Pixel ${PIXEL_ID}] Delegation tracking for dynamic telegram click`);
                 }
                 target.setAttribute('data-tracked-telegram', 'true');
             }
@@ -624,9 +638,10 @@
             fbq('trackCustom', 'TimeOnPage', {
                 seconds_spent: timeSpent,
                 page: 'pankaj_bhardwaj_landing',
-                pixel_id: '2450209212135373'
+                pixel_id: PIXEL_ID,
+                expert: EXPERT_NAME
             });
-            console.log(`[Event Tool] Time on page tracked: ${timeSpent} seconds`);
+            console.log(`[Pixel ${PIXEL_ID}] Time on page tracked: ${timeSpent} seconds`);
         }
     });
     
@@ -637,32 +652,33 @@
                 revisit_confirmation: true,
                 theme: 'premium_dark',
                 tracking_status: 'active',
-                pixel_id: '2450209212135373'
+                pixel_id: PIXEL_ID,
+                expert: EXPERT_NAME
             });
         }, 500);
     }
     
-    console.log('✅ PANKAJ BHARDWAJ: All Join Telegram & Subscribe buttons are pixel-tracked with Lead, Subscribe & Custom events');
-    console.log('✅ NEW Pixel ID: 2450209212135373');
-    console.log('✅ Telegram Channel Link: https://t.me/+7PAgBBLulUJiNjc1');
-    console.log('✅ Buttons placed: (1) First under name, (2) Second at bottom (last me), (3) Extra Subscribe button with event tracking');
-    console.log('✅ Stock market points: NIFTY/BANKNIFTY 100-300 Points, 80-90% Accuracy, 3-4 calls daily');
+    console.log(`✅ PANKAJ BHARDWAJ: All Join Telegram & Subscribe buttons are pixel-tracked with Lead, Subscribe & Custom events`);
+    console.log(`✅ NEW Pixel ID: ${PIXEL_ID}`);
+    console.log(`✅ Telegram Channel Link: ${TELEGRAM_LINK}`);
+    console.log(`✅ Buttons placed: (1) First under name, (2) Second at bottom (last me), (3) Extra Subscribe button with event tracking`);
+    console.log(`✅ Stock market points: NIFTY/BANKNIFTY 100-300 Points, 80-90% Accuracy, 3-4 calls daily`);
     
     // Expose debug helper for console testing
     window.pankajTracker = {
         testLeadEvent: function() {
             if (typeof fbq === 'function') {
-                fbq('track', 'Lead', { test_mode: true, source: 'console_debug', pixel_id: '2450209212135373' });
-                console.log('✅ Test Lead event sent successfully');
+                fbq('track', 'Lead', { test_mode: true, source: 'console_debug', pixel_id: PIXEL_ID });
+                console.log(`✅ Test Lead event sent successfully (${PIXEL_ID})`);
             } else {
                 console.error('fbq not loaded');
             }
         },
         getPixelStatus: function() {
-            return typeof fbq === 'function' ? 'FBQ_ACTIVE_PIXEL_2450209212135373' : 'FBQ_NOT_LOADED';
+            return typeof fbq === 'function' ? `FBQ_ACTIVE_PIXEL_${PIXEL_ID}` : 'FBQ_NOT_LOADED';
         },
         getPixelId: function() {
-            return '2450209212135373';
+            return PIXEL_ID;
         }
     };
 })();
@@ -670,9 +686,10 @@
 
 <!-- Noscript fallback images for additional event safety -->
 <noscript>
-    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2450209212135373&ev=Lead&noscript=1"/>
-    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2450209212135373&ev=Subscribe&noscript=1"/>
-    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2450209212135373&ev=CompleteRegistration&noscript=1"/>
+    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1516601233287747&ev=Lead&noscript=1"/>
+    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1516601233287747&ev=Subscribe&noscript=1"/>
+    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1516601233287747&ev=CompleteRegistration&noscript=1"/>
+    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1516601233287747&ev=Contact&noscript=1"/>
 </noscript>
 
 </body>
